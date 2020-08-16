@@ -1,13 +1,13 @@
 import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, CardColumns } from 'reactstrap'
 
-    function RenderDish({dish}) {
+    function RenderDish({dishh}) {
         return (
             <Card>
-                <CardImg width="100%" src={dish.image} alt={dish.name} />
+                <CardImg src={dishh.image} alt={dishh.name} />
                 <CardBody>
-                    <CardTitle>{dish.name}</CardTitle>
-                    <CardText>{dish.description}</CardText>
+                    <CardTitle>{dishh.name}</CardTitle>
+                    <CardText>{dishh.description}</CardText>
                 </CardBody>
             </Card>
         );
@@ -38,7 +38,6 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, CardColum
     }
 
     const DishDetail = (props) =>  {
-        console.log(this.props.dishh)
         if (props.dishh) {
             return (
                 <div className="container">
