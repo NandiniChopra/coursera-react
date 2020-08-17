@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
     function RenderDish({dishh}) {
         return (
-            <div className="col-12 col-md-5 m-1">
+            <div>
             <Card>
                 <CardImg width="100%" src={dishh.image} alt={dishh.name} />
                 <CardBody>
@@ -56,9 +56,12 @@ import { Link } from 'react-router-dom';
                     </div>
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
-                        <RenderDish dishh = {props.dishh} />                       
+                        <RenderDish dishh = {props.dishh} />                        
                     </div>
-                        <RenderComments comments = {props.comments} />
+                    <div className="col-12 col-md-5 m-1">
+                        <RenderComments comments = {props.comments} /> 
+                    </div>
+                        
                         
                 </div>
                 </div>
