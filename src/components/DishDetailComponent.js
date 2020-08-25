@@ -22,7 +22,7 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
         );
     }
 
-    function RenderComments({comments}) {
+    function RenderComments({comments, addComment, dishId}) {
         const commentList = comments.map((comment) => {
             return (
                 <li key={comment.id}>
@@ -42,7 +42,7 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
                 <ul className="list-unstyled">
                     {commentList}
                 </ul>
-                <CommentForm />
+                <CommentForm dishId={dishId} addComment={addComment}/>
             </div>
         );
     }
@@ -65,6 +65,11 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
             });
         }
 
+        handleSubmit(values){
+            this.toggleModal();
+            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)
+        }
+
         render() {
 
             return(
@@ -75,16 +80,17 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
                     <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                         <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                         <ModalBody>
-                            <LocalForm>
+                            <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+>
                                 <Row className="form-group">
                                     <Label md={12} htmlFor="rating"> Rating </Label>
                                     <Col md={12}>
                                         <Control.select model=".rating" name="rating" className="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
                                         </Control.select>
                                     </Col>
                                 </Row>
@@ -158,7 +164,9 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
                         <RenderDish dishh = {props.dishh} />                        
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        <RenderComments comments = {props.comments} /> 
+                        <RenderComments comments = {props.comments}
+                            addComment = {props.addComment}
+                            dishId = {props.dishh.id} /> 
                     </div>
                         
                         
