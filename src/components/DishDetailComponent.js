@@ -3,6 +3,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, CardColum
      BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Row, Label, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 
 const required = (val) => val && val.length;
 const minLength = (len) => (val) => (val) && (val.length >= len);
@@ -81,7 +82,7 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
                         <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                         <ModalBody>
                             <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
->
+
                                 <Row className="form-group">
                                     <Label md={12} htmlFor="rating"> Rating </Label>
                                     <Col md={12}>
@@ -146,7 +147,27 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
 
 
     const DishDetail = (props) =>  {
-        if (props.dishh != null) {
+        if(props.isLoading){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+
+        else if (props.errMess){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
+
+        else if (props.dishh != null) {
             return (
                 <div className="container">
                     <div className="row">
