@@ -4,6 +4,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, CardColum
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 const required = (val) => val && val.length;
 const minLength = (len) => (val) => (val) && (val.length >= len);
@@ -13,7 +14,7 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
         return (
             <div>
             <Card>
-                <CardImg width="100%" src={dishh.image} alt={dishh.name} />
+                <CardImg width="100%" src={baseUrl + dishh.image} alt={dishh.name} />
                 <CardBody>
                     <CardTitle>{dishh.name}</CardTitle>
                     <CardText>{dishh.description}</CardText>
@@ -23,7 +24,7 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
         );
     }
 
-    function RenderComments({comments, addComment, dishId}) {
+    function RenderComments({comments, postComment, dishId}) {
         const commentList = comments.map((comment) => {
             return (
                 <li key={comment.id}>
@@ -43,7 +44,7 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
                 <ul className="list-unstyled">
                     {commentList}
                 </ul>
-                <CommentForm dishId={dishId} addComment={addComment}/>
+                <CommentForm dishId={dishId} postComment={postComment}/>
             </div>
         );
     }
@@ -68,7 +69,7 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
 
         handleSubmit(values){
             this.toggleModal();
-            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)
+            this.props.postComment(this.props.dishId, values.rating, values.author, values.comment)
         }
 
         render() {
@@ -186,7 +187,7 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
                     </div>
                     <div className="col-12 col-md-5 m-1">
                         <RenderComments comments = {props.comments}
-                            addComment = {props.addComment}
+                            postComment = {props.postComment}
                             dishId = {props.dishh.id} /> 
                     </div>
                         
